@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Homework 2</title>
+	<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+	<p>Which Candy is Better? Cell entry indicates the author's preference</p>
+	<table>
+	    <thead>
+	        <tr>
+	            <th></th>
+	            <th>Snickers</th>
+	            <th>Gummy Bears</th>
+	            <th>Sour Gummy Worms</th>
+	            <th>Twix</th>
+	            <th>Starburst</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr>
+	            <td><i>Snickers</i></td>
+	            <td>N/A</td>
+	            <td>Snickers</td>
+	            <td>Sour Gummy Worms</td>
+	            <td>Snickers</td>
+	            <td>Starburst</td>
+	        </tr>
+	        <tr>
+	            <td><i>Gummy Bears</i></td>
+	            <td>Snickers</td>
+	            <td>N/A</td>
+	            <td>Sour Gummy Worms</td>
+	            <td>Gummy Bears</td>
+	            <td>Starburst</td>
+	        </tr>
+	        <tr>
+	        	<td><i>Sour Gummy Worms</i></td>
+	            <td>Sour Gummy Worms</td>
+	            <td>Sour Gummy Worms</td>
+	            <td>N/A</td>
+	            <td>Sour Gummy Worms</td>
+	            <td>Sour Gummy Worms</td>
+	        </tr>
+	        <tr>
+	            <td><i>Twix</i></td>
+	            <td>Snickers</td>
+	            <td>Gummy Bears</td>
+	            <td>Sour Gummy Worms</td>
+	            <td>N/A</td>
+	            <td>Starburst</td>
+	        </tr>
+	        <tr>
+	            <td><i>Starburst</i></td>
+	            <td>Starburst</td>
+	            <td>Starburst</td>
+	            <td>Sour Gummy Worms</td>
+	            <td>Starburst</td>
+	            <td>N/A</td>
+	        </tr>
+	        <tr>
+	            <td colspan="2">Two Column spanning footer</td>
+	            <td colspan="4">Four Column spanning footer</td>
+	        </tr>
+	    </tbody>
+	</table>
+
+	<ul>
+		<li>Best drink to have in the morning</li>
+		  	<ul>
+			    <li>Coffee</li>
+		    </ul>
+		<li>Best drink to have in the afternoon</li>
+		  	<ul>
+			    <li>Coffee</li>
+		    </ul>
+		<li>Best drink to have at night</li>
+		  	<ul>
+			    <li>Beer</li>
+		    </ul>
+	</ul>
+
+	<div class="outer-content">
+		<div class="inner-content">
+			inner content
+		</div>
+	</div>
+
+	<div style="float: left;">
+		<form action="http://classes.engr.oregonstate.edu/eecs/winter2015/cs290-400/tools/class-content/form_tests/check_request.php" method="get">
+	        <fieldset>
+	            <legend>GET Form</legend>
+	            <label>Text:
+	                <input type="text" name="text_input" size="30" maxlength="100">
+	            </label>
+	            <br />
+	            <label>Number:
+	                <input type="number" name="numerical_input" size="30">
+	            </label>
+	            <br />
+	            <label>Password:
+	                <input type="password" name="password_input" size="30" maxlength="100">
+	            </label>
+	            <br />
+	            <label>Select between:
+					<input type="radio" name="candy" value="Snickers" checked> Snickers<br>
+					<input type="radio" name="candy" value="Skittles"> Skittles<br>
+					<input type="radio" name="candy" value="Mentos"> Mentos
+	            </label>
+	            <br />
+	            <input type="submit">
+	        </fieldset>
+	        <br />
+	    </form>
+	</div>
+
+	<div style="float: right;">
+		<form action="http://classes.engr.oregonstate.edu/eecs/winter2015/cs290-400/tools/class-content/form_tests/check_request.php" method="post">
+	        <fieldset>
+	            <legend>POST Form</legend>
+	            <label>Text:
+	                <input type="text" name="text_input" size="30" maxlength="100">
+	            </label>
+	            <br />
+	            <label>Number:
+	                <input type="number" name="numerical_input" size="30">
+	            </label>
+	            <br />
+	            <label>Password:
+	                <input type="password" name="password_input" size="30" maxlength="100">
+	            </label>
+	            <br />
+	            <label>Select between:
+					<input type="radio" name="candy" value="Snickers" checked> Snickers<br>
+					<input type="radio" name="candy" value="Skittles"> Skittles<br>
+					<input type="radio" name="candy" value="Mentos"> Mentos
+	            </label>
+	            <br />
+	            <input type="submit">
+	        </fieldset>
+	        <br />
+	    </form>
+	</div>
+  
+</body>
+</html>
