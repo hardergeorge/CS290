@@ -53,8 +53,11 @@ function yearComparator(auto1, auto2){
 
 /*This compares two automobiles based on their make. It should be case insensitive and makes which are alphabetically earlier in the alphabet are "greater" than ones that come later.*/
 function makeComparator(auto1, auto2){
-    if(auto1.make < auto2.make) return -1;
-    if(auto1.make > auto2.make) return 1;
+    auto1make = auto1.make.toLowerCase();
+    auto2make = auto2.make.toLowerCase();
+
+    if(auto1make < auto2make) return -1;
+    if(auto1make > auto2make) return 1;
     return 0;
 }
 
