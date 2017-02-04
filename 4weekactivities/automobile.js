@@ -14,6 +14,7 @@ var automobiles = [
     new Automobile(2008, "Subaru", "Outback", "Wagon")
     ];
 
+//function for printing a car with type information optional
 Automobile.prototype.logMe = function(type) {
     if(type) {
         console.log(this.year, this.make, this.model, this.type)
@@ -22,6 +23,7 @@ Automobile.prototype.logMe = function(type) {
     }
 }
 
+//calls logMe on each car in an array
 printCars = function(cars, type) {
     for (var car in cars) {
         cars[car].logMe(type);
@@ -60,6 +62,9 @@ function makeComparator(auto1, auto2){
 function typeComparator(auto1, auto2){
     autos = [auto1, auto2];
     vals = [0, 0];
+    
+    //this loop assigns numerical values to the auto types in a parallel array to the one the params are in
+    //so that the types can be compared in fashion sutiable for array.sort(compareFunction)
     for (var car in autos) {
         if (autos[car].type == "Roadster"){
             vals[car] = 4;
