@@ -91,10 +91,10 @@ Each line representing a car should be produced via a logMe function. This funct
 
 console.log('*****');
 console.log('The cars sorted by year are:');
-printCars(sortArr(yearComparator, automobiles), true);
+printCars(sortArr(yearComparator, automobiles), false);
 
 console.log('\nThe cars sorted by make are:');
-printCars(sortArr(makeComparator, automobiles), true);
+printCars(sortArr(makeComparator, automobiles), false);
 
 console.log('\nThe cars sorted by type are:');
 printCars(sortArr(typeComparator, automobiles), true);
