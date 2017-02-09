@@ -49,3 +49,19 @@ document.body.appendChild(create_button('upbutton', 'UP'));
 document.body.appendChild(create_button('downbutton', 'DOWN'));
 document.body.appendChild(create_button('leftbutton', 'LEFT'));
 document.body.appendChild(create_button('rightbutton', 'RIGHT'));
+
+document.getElementById('upbutton').addEventListener("click", function() {
+    console.log('upbutton click');
+});
+
+document.getElementById('downbutton').addEventListener("click", function() {
+    console.log('downbutton click');
+});
+
+document.getElementById('leftbutton').addEventListener("click", function() {
+    console.log('leftbutton click');
+});
+
+document.getElementById('rightbutton').addEventListener("click", function() {
+    console.log('rightbutton click');
+});
