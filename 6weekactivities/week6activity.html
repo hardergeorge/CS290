@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      var apiKey = 'fa7d80c48643dfadde2cced1b1be6ca1';
+
+      document.addEventListener('DOMContentLoaded', bindZipButton);
+      document.addEventListener('DOMContentLoaded', bindCityButton);
+      document.addEventListener('DOMContentLoaded', bindhttpbinButton);
+
+      function bindZipButton(){
+        document.getElementById('zipSubmit').addEventListener('click', function(event){
+          var req = new XMLHttpRequest();
+          var url = 'http://api.openweathermap.org/data/2.5/weather?zip=' + document.getElementById('zipcode').value + '&appid=' + apiKey;
+
+          req.open('GET', url, true);
+          req.addEventListener('load', function(){
+             if(req.status >= 200 && req.status < 400){
+                 var response = JSON.parse(req.responseText);
+                 document.getElementById('currcity').textContent = response.name;
+                 document.getElementById('temp').textContent = response.main.temp;
+                 document.getElementById('humidity').textContent = response.main.humidity;
+             } else {
+                 console.log("Error in network request: " + req.statusText);
+             }
+          });
+
+          req.send(null);
+          event.preventDefault();
+      });
+      }
+
+      function bindCityButton(){
+        document.getElementById('citySubmit').addEventListener('click', function(event){
+          var req = new XMLHttpRequest();
+          var url = 'http://api.openweathermap.org/data/2.5/weather?q=' + document.getElementById('city').value + '&appid=' + apiKey;
+
+          req.open('GET', url, true);
+          req.addEventListener('load', function(){
+             if(req.status >= 200 && req.status < 400){
+                 var response = JSON.parse(req.responseText);
+                 document.getElementById('currcity').textContent = response.name;
+                 document.getElementById('temp').textContent = response.main.temp;
+                 document.getElementById('humidity').textContent = response.main.humidity;
+             } else {
+                 console.log("Error in network request: " + req.statusText);
+             }
+          });
+
+          req.send(null);
+          event.preventDefault();
+      });
+      }
+
+      function bindhttpbinButton(){
+        document.getElementById('httpbinSubmit').addEventListener('click', function(event){
+          var req = new XMLHttpRequest();
+          var payload = {input:null}
+          var url = 'http://httpbin.org/post';
+
+          payload.input = document.getElementById('httpbin').value;
+
+          req.open('POST', url, true);
+          req.setRequestHeader('Content-Type', 'application/json');
+
+          req.addEventListener('load', function(){
+             if(req.status >= 200 && req.status < 400){
+                 var response = JSON.parse(req.responseText);
+                 console.log(response);
+                 document.getElementById('httpbinresult').textContent = response.data;
+             } else {
+                 console.log("Error in network request: " + req.statusText);
+             }
+          });
+
+          req.send(JSON.stringify(payload));
+          event.preventDefault();
+      });
+      }
+    </script>
+  </head>
+  <body>
+    <form>
+      <fieldset>
+        <legend>Weather by Zip Code</legend>
+        <label for="zipcode"></label>
+        <input type="text" name="zipcode" id="zipcode">
+        <input type="submit" id="zipSubmit">
+      </fieldset>
+      <fieldset>
+        <legend>Weather by City</legend>
+        <label for="city"></label>
+        <input type="text" name="city" id="city">
+        <input type="submit" id="citySubmit">
+      </fieldset>
+
+      <fieldset>
+        <legend>HTTP Bin</legend>
+        <label for="httpbin"></label>
+        <input type="text" name="city" id="httpbin">
+        <input type="submit" id="httpbinSubmit">
+      </fieldset>
+    </form>
+    <div>
+      <h2>Weather Result</h2>
+      <ul>
+        <li><span>City: </span><span id="currcity"></span></li>
+        <li><span>Current Temperature: </span><span id="temp"></span></li>
+        <li><span>Humidity: </span><span id="humidity"></span></li>
+      </ul>
+    </div>
+    <div>
+        <h2>HTTP Bin Result</h2>
+        <span>Result: </span><span id="httpbinresult"></span>
+    </div>
+  </body>
+</html>
