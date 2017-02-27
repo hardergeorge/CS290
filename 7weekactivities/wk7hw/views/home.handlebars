@@ -1,0 +1,14 @@
+<h1>A GET and POST handling page</h1>
+
+<h1>{{req_type}}</h1>
+<h2>{{req_empty_message}}</h2>
+<ul>
+  {{#each query_list}}
+    <li>{{this.name}}: {{this.value}}
+  {{/each}}
+</ul>
+<ul>
+  {{#each body_list}}
+    <li>{{this.name}}: {{this.value}}
+  {{/each}}
+</ul>
