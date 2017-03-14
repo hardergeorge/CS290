@@ -1,0 +1,469 @@
+<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+<script type="text/javascript" src="how-to.js"></script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	<meta charset="utf-8">
+
+	<title>Spotify API Guide API</title>
+
+	<style>
+		.content-list {
+			width: calc(100% - 50px);
+		}
+		.mdl-layout__drawer-button .material-icons {
+			margin-top: 12px;
+		}
+		.mdl-data-table {
+			margin-left: 10px;
+			width: calc(100% - 200px);
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+		<header class="mdl-layout__header">
+			<div class="mdl-layout__header-row">
+				<!-- Title -->
+				<span class="mdl-layout-title">Spotify API How-To Guide</span>
+				<!-- Spacer to align links on the right -->
+				<div class="mdl-layout-spacer"></div>
+
+				<!-- Hides the nav bar on small screens -->
+				<nav class="mdl-navigation mdl-layout--large-screen-only">
+					<a class="mdl-navigation__link" href="https://developer.spotify.com/web-api/">Spotify Docs</a>
+					<a class="mdl-navigation__link" href="#get-started">Get Started</a>
+					<a class="mdl-navigation__link" href="#auth">Authorization</a>
+					<a class="mdl-navigation__link" href="#endpoints">Endpoints</a>
+					<a class="mdl-navigation__link" href="#wrapper">API Wrapper</a>
+					<a class="mdl-navigation__link" href="#examples">Examples</a>
+				</nav>
+			</div>
+		</header>
+		<div class="mdl-layout__drawer">
+			<span class="mdl-layout-title">Spotify API How-To</span>
+			<nav class="mdl-navigation">
+				<a class="mdl-navigation__link" href="https://developer.spotify.com/web-api/">Spotify Docs</a>
+				<a class="mdl-navigation__link" href="#get-started">Get Started</a>
+				<a class="mdl-navigation__link" href="#auth">Authorization</a>
+				<a class="mdl-navigation__link" href="#endpoints">Endpoints</a>
+				<a class="mdl-navigation__link" href="#wrapper">API Wrapper</a>
+				<a class="mdl-navigation__link" href="#examples">Examples</a>
+			</nav>
+		</div>
+		<main class="drawer-tab mdl-layout__content">
+			<div class="page-content">
+
+				<h3 id="get-started">Getting Started</h3>
+
+				<ul class="content-list mdl-list">
+					<li class="mdl-list__item mdl-list__item--three-line">
+						<span class="mdl-list__item-primary-content">
+						<span>1. Account Creation</span>
+						<span class="mdl-list__item-text-body">
+							Spotify requires users of their API to have a Spotify
+							user account. For me, I could skip this step because
+							I am already a Premium Spotify User. However, if you
+							are not already user you'll need to make a Premium or
+							Free account to use the API.
+						</span>
+						</span>
+					</li>
+					<li class="mdl-list__item mdl-list__item--three-line">
+						<span class="mdl-list__item-primary-content">
+						<span>2. Application registration</span>
+						<span class="mdl-list__item-text-body">
+							This step is, in theory, optional. The Spotify documentation
+							goes through it because their example application accesses
+							user's personal data and in order to do this the application
+							must be registered. So, to register your application you
+							need to login and follow the steps
+							<a href="https://developer.spotify.com/my-applications/">here</a>.
+							Once you have saved your application it should appear
+							in your "My Applications" page and you can move on to
+							the next step.
+						</span>
+						</span>
+					</li>
+					<li class="mdl-list__item mdl-list__item--three-line">
+						<span class="mdl-list__item-primary-content">
+						<span>3. Client ID and Secret Key</span>
+						<span class="mdl-list__item-text-body">
+							Spotify Applications, once registered, have two credetials
+							created for them. They are viewable on the application's
+							details page. You need both of them when you make
+							calls to Spotify web services. It is very important
+							that you never reveal the Secret Key. If you do, you
+							must generate a new one.
+						</span>
+						</span>
+					</li>
+					<li id="login-step" class="mdl-list__item mdl-list__item--three-line">
+						<span class="mdl-list__item-primary-content">
+						<span>4. An Example User Login</span>
+						<span class="mdl-list__item-text-body">
+							Spotify provides a wonderful set of examples on how to
+							set up an example application that prompts a user to
+							login and displays their information. It is a good
+							excercise in setting up a Spotify application so the
+							details will be discussed here. All of the code for
+							the example application is available at this
+							<a href="https://github.com/spotify/web-api-auth-examples">Github Repo</a>.
+							In addition, the example discussed here can be found in
+							<a href="#login-ex">this</a> code snippet. This HTML works
+							with the <code>app.js</code> file to make a user login
+							page and then once the user has logged in, display their
+							information. The most important part of the JavaScript,
+							the authorization keys, is displayed in the <a href="#login-ex">same example</a>.
+						</span>
+						</span>
+					</li>
+					<li class="mdl-list__item mdl-list__item--three-line">
+						<span class="mdl-list__item-primary-content">
+						<span>5. Running Your Application</span>
+						<span class="mdl-list__item-text-body">
+							To run the application, once your have added your keys
+							to the <code>app.js</code> file, you just need to follow
+							the steps you would to do run any server side Node.js application.
+							From inside the proper directory: <kbd>npm install</kbd>
+							and then <kbd>node app.js</kbd>. Performing this step
+							should prove painless, however if you have trouble
+							consulting the <a href="https://developer.spotify.com/web-api/tutorial/">documentation</a>
+							will provide more details. This is a broad strokes discussion
+							of what it took the author to set up an example application,
+							not an exhaustive document.
+						</span>
+						</span>
+					</li>
+				</ul>
+
+				<h3 id="auth">Authorization</h3>
+					<p>
+						Authorization is one of the most complicated pieces of
+						using the Spotify API and gave the user the most trouble.
+						While the <a href="https://developer.spotify.com/web-api/tutorial/">documentation</a>
+						is exhaustive, it lacks a clear and concise discussion of
+						the basics of authorization in your application. As mentioned
+						in the start guide when registering an application you receive
+						two keys. We use the keys in the example application, however
+						the documentation goes into dense detail about different
+						flows for these keys. The following section attempts to
+						demystify the three work flows so that it easy to pick
+						one for an application.
+					</p>
+					<h4>Authorization Code</h4>
+					<p>
+						This method is the flow used in our example application. It
+						uses both authentication keys that are obtained from registering
+						an application. The documentation makes this flow seem as though
+						it is the most complicated. A seven step flowchart details the
+						flow of the different access tokens, between the application, the
+						Spotify Accounts Service, and the User. While this flow chart
+						and the subsequent discussion of the steps is daunting, this flow
+						is actually pretty simple and likely the one that most applications
+						will use.
+					</p>
+					<p>
+						The basic flow is this: your application requests data from a user,
+						the Spotify Account Service prompts a user to login, the user logs in,
+						your application sees the user logs in and requests access and refresh
+						tokens. Once your application receives these tokens it can continue
+						talking to the Spotify Web API and acquire user data. Behind the scenes
+						the acces token will expire periodically but your application is able to
+						acquire a new one using the refresh token. So while the flowchart looks
+						complicated, your application really only needs to do some work upfront
+						before it can start performing its main functions, whatever that may be.
+					</p>
+					<h4>Client Credentials</h4>
+					<p>
+						This flow is simpler than the Authorization Code flow, however it is
+						difficult to try and get going in practice. This flow does not use
+						any of the user's information, however that means that it cannot access
+						or manage any of user data. As such, it is not that useful for any
+						application that you may create to experiment with this API. It is
+						only used for server to server interactions and authentication and
+						can really be ignored for the purposes of this guide. The curious reader
+						is referred to the
+						<a href="https://developer.spotify.com/web-api/authorization-guide/#client_credentials_flow">documentation</a>.
+					</p>
+					<h4>Implicit Grant</h4>
+					<p>
+						The Implicit Grant flow is a client side way of accessing the Spotify
+						Web Api. To use it, your application only uses the Client ID and not the
+						Secret Key. This allows your application to live totally in the client's
+						browser instead of using a server. This makes it ideal for short-lived
+						client side interactions with the Spotify Web API. The primary difference
+						between this flow and the Authorization Code flow is that your application
+						does not receive a refresh token and thus cannot continue to access user
+						data once the access token expires. Once again, this means that it is
+						ideal for short-lived client side interactions but not for a long running
+						application.
+					</p>
+					<h4>Which is Right for My Application?</h4>
+					<p>
+						This really depends on the purpose of your application. A simple short
+						running client side interaction that lives within your larger website
+						should probably use the Implicit Grant flow. Since we can't keep the
+						interactions alive with this method then we really don't want to use
+						it when the user will be updating and accessing their information over
+						a long period of time. If this was the case, we would prefer to use the
+						Authorization Code flow. This gives us the ability to interact with the
+						Spotify Web API over an extended period of time. The Client Credentials
+						flow is useful if we just want to get information from Spotify but do not
+						have any need to interact with users in our application.
+					</p>
+				<h3 id="endpoints">Useful Endpoints</h3>
+					<p>
+						The Spotify <a href="https://developer.spotify.com/web-api/endpoint-reference/">documentation</a>
+						has an extensive list of all of the endpoint's that your application can reach
+						to get information from the Spotify Web API. This section does not seek to
+						reproduce that part of the documentation. Instead, it seeks to condense this
+						information because it is easy to get lost in the huge list of possible endpoints.
+						When building a small application to access playlists the author was struggling
+						to find useful endpoints so this table will list a few that seem like they would
+						be useful to a wide variety of apps.
+					</p>
+					<p>
+						Important Note: The Spotify Web API's Base URL is: <code>https://api.spotify.com</code>
+					</p>
+
+					<table class="mdl-data-table mdl-js-data-table">
+						<thead>
+							<tr>
+								<th class="mdl-data-table__cell--non-numeric">
+									HTTP Verb
+								</th>
+								<th class="mdl-data-table__cell--non-numeric">
+									URL
+								</th>
+								<th class="mdl-data-table__cell--non-numeric">
+									Use
+								</th>
+								<th class="mdl-data-table__cell--non-numeric">
+									Return Value
+								</th>
+								<th class="mdl-data-table__cell--non-numeric">
+									Notes
+								</th>
+							</tr>
+							</thead>
+						<tbody>
+							<tr>
+								<td class="mdl-data-table__cell--non-numeric">
+									GET
+								</td>
+								<td class="mdl-data-table__cell--non-numeric">
+									<code>/v1/albums/{id}</code>
+								</td>
+								<td class="mdl-data-table__cell--non-numeric">
+									Retrieve an album's information
+								</td>
+								<td class="mdl-data-table__cell--non-numeric">
+									Album
+								</td>
+								<td class="mdl-data-table__cell--non-numeric">
+									Can be combined with <code>?ids={ids}</code> to retrieve multiple
+									albums or <code>/tracks</code> to get just the album tracks.
+								</td>
+							</tr>
+							<tr>
+								<td class="mdl-data-table__cell--non-numeric">
+									GET
+								</td>
+								<td class="mdl-data-table__cell--non-numeric">
+									<code>/v1/artists/{id}</code>
+								</td>
+								<td class="mdl-data-table__cell--non-numeric">
+									Retrieve an artist's information
+								</td>
+								<td class="mdl-data-table__cell--non-numeric">
+									Artist
+								</td>
+								<td class="mdl-data-table__cell--non-numeric">
+									Can be combined with <code>?ids={ids}</code> to retrieve multiple
+									artists, <code>/albums</code> to get an artists albums, </br> or
+									<code>/top-tracks</code> to get an artists top tracks.
+								</td>
+							</tr>
+							<tr>
+								<td class="mdl-data-table__cell--non-numeric">
+									GET
+								</td>
+								<td class="mdl-data-table__cell--non-numeric">
+									<code>/v1/me/playlists</code>
+								</td>
+								<td class="mdl-data-table__cell--non-numeric">
+									Get the current users playlists
+								</td>
+								<td class="mdl-data-table__cell--non-numeric">
+									List of Playlists
+								</td>
+								<td class="mdl-data-table__cell--non-numeric">
+									The <code>/v1/me/</code> portion of the URL can be used
+									to get a lot of different information about a user.
+								</td>
+							</tr>
+							<tr>
+								<td class="mdl-data-table__cell--non-numeric">
+									GET
+								</td>
+								<td class="mdl-data-table__cell--non-numeric">
+									<code>https://api.spotify.com/v1/search</code>
+								</td>
+								<td class="mdl-data-table__cell--non-numeric">
+									Perform a keyword search for artists, </br>
+									albums, tracks or playlists
+								</td>
+								<td class="mdl-data-table__cell--non-numeric">
+									Varies
+								</td>
+								<td class="mdl-data-table__cell--non-numeric">
+									The search endpoint works just like a standard query URL would.
+									There are two required </br> parameters: <i>q</i> as in
+									<code>q={keyword}</code> and <i>type</i> which is a comma separated
+									list of the valid types </br> which are <code>artist</code>,
+									<code>album</code>, <code>playlist</code>, and <code>track</code>.
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				<h3 id="wrapper">Web API Wrapper</h3>
+					<p>
+						Spotify's API has several wrappers that can make building applications
+						much easier. The one that I chose to look more into is
+						<a href="https://jmperezperez.com/spotify-web-api-js/">this one</a>
+						by Jose Manuel Perez. It allows application developers to abstract
+						away some of the potentially annoying details of crafting HTTP requests
+						and simply use the <code>SpotifyWebApi()</code> object. The wrapper includes
+						over 60 different functions that allow for a function call to act as the
+						only interaction between your code and the Web API. In addition, it is a
+						Node.js module so it can be installed with minimum effort by the developer.
+						An example of a function call can be found in the <a href="#wrapper-ex">examples</a>
+						section of this page.
+					</p>
+					<p>
+						The Web API does have wrappers in a number of other languages
+						including: Python, Ruby, PHP, Perl, Java/Android and others. The
+						existence of these wrapper allows developers to use their preffered
+						language when developing applications and provides not only simplicity
+						but flexibility.
+					</p>
+				<h3 id="examples">Basic Code Examples</h3>
+
+					<h4 id="login-ex">User Login</h4>
+						<p>
+							This example is tied to <a href=#login-step>this</a>
+							item from the <a href=#get-started>Getting Started</a> section.
+							It displays a simple login interface to the user.
+						</p>
+
+<pre>
+<code>
+	&lt;div class="container"&gt;
+	  &lt;div id="login"&gt;
+	    &lt;h1&gt;This is an example of the Authorization Code flow&lt;/h1&gt;
+	    &lt;a href="/login" class="btn btn-primary"&gt;Log in with Spotify&lt;/a&gt;
+	  &lt;/div&gt;
+	  &lt;div id="loggedin"&gt;
+	    &lt;div id="user-profile"&gt;
+	    &lt;/div&gt;
+	    &lt;div id="oauth"&gt;
+	    &lt;/div&gt;
+	    &lt;button class="btn btn-default" id="obtain-new-token"&gt;Obtain new token using the refresh token&lt;/button&gt;
+	  &lt;/div&gt;
+	&lt;/div&gt;
+
+	&lt;script id="user-profile-template" type="text/x-handlebars-template"&gt;
+	  &lt;h1&gt;Logged in as {{display_name}}&lt;/h1&gt;
+	  &lt;div class="media"&gt;
+	    &lt;div class="pull-left"&gt;
+	      &lt;img class="media-object" width="150" src="{{images.0.url}}" /&gt;
+	    &lt;/div&gt;
+	    &lt;div class="media-body"&gt;
+	      &lt;dl class="dl-horizontal"&gt;
+	        &lt;dt&gt;Display name&lt;/dt&gt;&lt;dd class="clearfix"&gt;{{display_name}}&lt;/dd&gt;
+	        &lt;dt&gt;Id&lt;/dt&gt;&lt;dd&gt;{{id}}&lt;/dd&gt;
+	        &lt;dt&gt;Email&lt;/dt&gt;&lt;dd&gt;{{email}}&lt;/dd&gt;
+	        &lt;dt&gt;Spotify URI&lt;/dt&gt;&lt;dd&gt;&lt;a href="{{external_urls.spotify}}"&gt;{{external_urls.spotify}}&lt;/a&gt;&lt;/dd&gt;
+	        &lt;dt&gt;Link&lt;/dt&gt;&lt;dd&gt;&lt;a href="{{href}}"&gt;{{href}}&lt;/a&gt;&lt;/dd&gt;
+	        &lt;dt&gt;Profile Image&lt;/dt&gt;&lt;dd class="clearfix"&gt;&lt;a href="{{images.0.url}}"&gt;{{images.0.url}}&lt;/a&gt;&lt;/dd&gt;
+	        &lt;dt&gt;Country&lt;/dt&gt;&lt;dd&gt;{{country}}&lt;/dd&gt;
+	      &lt;/dl&gt;
+	    &lt;/div&gt;
+	  &lt;/div&gt;
+	&lt;/script&gt;
+</code>
+</pre>
+
+<p>
+	This JavaScript in the <code>app.js</code> file must be edited with your
+	specific information for the application to work.
+</p>
+
+<pre>
+<code>
+	var client_id = 'CLIENT_ID'; // Your client id
+	var client_secret = 'CLIENT_SECRET'; // Your secret
+	var redirect_uri = 'REDIRECT_URI'; // Your redirect uri
+</code>
+</pre>
+
+					<h4 id="wrapper-ex">Web Wrapper Example</h4>
+						<p>
+							This JavaScript uses one of the JS web wrappers in order to retrieve
+							all of Elvis's albums. The first parameter is Elvis's Spotify artist ID.
+							This example shows how using a web wrapper can greatly simplify calls
+							to the Spotify Web API.
+						</p>
+
+<pre>
+<code>
+	var spotifyApi = new SpotifyWebApi();
+	spotifyApi.setAccessToken('your_access_token');
+
+	spotifyApi.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE', function(err, data) {
+		if (err) console.error(err);
+		else console.log('Artist albums', data);
+	});
+</code>
+</pre>
+
+					<h4>Album Search Example</h4>
+						<p>
+							This JavaScript uses jQuery, AJAX, and JSON to call into the
+							Spotify Web API and retrieve a list of albums. On success, it
+							logs the results but it could be used to fill out an
+							HTML template with albums.
+						</p>
+
+<pre>
+<code>
+	var searchAlbums = function (query) {
+	    $.ajax({
+	        url: 'https://api.spotify.com/v1/search',
+	        data: {
+	            q: query,
+	            type: 'album'
+	        },
+	        success: function (response) {
+	            console.log(response);
+	        }
+	    });
+	};
+</code>
+</pre>
+
+			</div>
+		</main>
+	</div>
+
+</body>
+</html>
